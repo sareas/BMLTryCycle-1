@@ -7,41 +7,34 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     
-
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.locationManager.delegate = self
+        self.mapView.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.requestWhenInUseAuthorization()
         let data = NSData(contentsOfURL: endpoint!)
         
-        do{
-            if let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
+        do {
+            if let  json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                let station = Station(json: json)
                 
-                var station = Station(json: json)
-                print(station)
-
-                
-//                if let bikehareStations = json["stationBeanList"] as? NSArray {
-//                    
-//                    let bikeShareData = bikeShareStations[0] as? NSDictionary
-//                    
-//                    if let bikeShare = bikeShareData {
-//                        print(bikeShare["availableBikes"]!)
-//                        print(bikeShare["availableDocks"]!)
-//                        print(bikeShare["latitude"]!)
-//                        print(bikeShare["longitude"]!)
-//                        print(bikeShare["stationName"]!)
-//                    }
-//                }
+                for pins in station.mapPins {
+                    guard let myPins = pins as? Annotations else {return }
+                    mapView.addAnnotation(myPins)
+                }
             }
-        }catch let error{
-            print(error)
+        } catch {
+            
         }
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {

@@ -7,44 +7,30 @@
 //
 
 import Foundation
-
+import MapKit
 
 struct Station {
     
+    var mapPins:NSMutableArray = []
+    var array = [String]()
     
     init(json:NSDictionary) {
         if let bikeShareStations = json["stationBeanList"] as? NSArray {
             let bikeShareDepots = bikeShareStations
             for var i = 0; i < bikeShareDepots.count; i++ {
                 
-                var availableBikes:Int?
-                var availableDocks:Int?
-                var latitude:Float?
-                var longitude:Float?
-                var stationName:String?
-                
                 let bikeShareData = bikeShareDepots[i] as? NSDictionary
                 if let bikeShare = bikeShareData {
-                    if let bike = bikeShare["availableBikes"] as? Int {
-                        availableBikes = bike as Int
-                        print(availableBikes!)
-                    }
-                    if let dock = bikeShare["availableDocks"] as? Int {
-                        availableDocks = dock as Int
-                        print(availableDocks!)
-                    }
-                    if let lat = bikeShare["latitude"] as? Float {
-                        latitude = lat as Float
-                        print(latitude!)
-                    }
-                    if let long = bikeShare["longitude"] as? Float {
-                        longitude = long
-                        print(longitude!)
-                    }
-                    if let station = bikeShare["stationName"] as? String {
-                        stationName = station
-                        print(stationName!)
-                    }
+                    guard let availableBikes = bikeShare["availableBikes"] as? Int else { return }
+                    //guard let availableDocks = bikeShare["availableDocks"] as? Int else { return }
+                    guard let latitude = bikeShare["latitude"] as? Float else { return }
+                    guard let longitude = bikeShare["longitude"] as? Float else { return }
+                    guard let stationName = bikeShare["stationName"] as? String else { return }
+                    
+                    let pin = Annotations(coordinate: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), title: stationName, subtitle: "Bikes Available \(availableBikes)")
+                    
+                    mapPins.addObject(pin)
+                    
                 }
             }
         }
