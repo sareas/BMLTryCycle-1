@@ -15,6 +15,8 @@
 		B6D552381BFBA542007D9C47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */; };
 		B6D552431BFBA543007D9C47 /* BMLTryCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D552421BFBA543007D9C47 /* BMLTryCycleTests.swift */; };
 		B6D5524E1BFBA543007D9C47 /* BMLTryCycleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */; };
+		B6D5525C1BFBA5B6007D9C47 /* CONSTANT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */; settings = {ASSET_TAGS = (); }; };
+		B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525D1BFBA855007D9C47 /* StationModel.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		B6D552491BFBA543007D9C47 /* BMLTryCycleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BMLTryCycleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMLTryCycleUITests.swift; sourceTree = "<group>"; };
 		B6D5524F1BFBA543007D9C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CONSTANT.swift; sourceTree = "<group>"; };
+		B6D5525D1BFBA855007D9C47 /* StationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */,
 				B6D552391BFBA542007D9C47 /* Info.plist */,
 				B6D552311BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld */,
+				B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */,
+				B6D5525D1BFBA855007D9C47 /* StationModel.swift */,
 			);
 			path = BMLTryCycle;
 			sourceTree = "<group>";
@@ -263,7 +269,9 @@
 			files = (
 				B6D5522D1BFBA542007D9C47 /* ViewController.swift in Sources */,
 				B6D552331BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld in Sources */,
+				B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */,
 				B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */,
+				B6D5525C1BFBA5B6007D9C47 /* CONSTANT.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
