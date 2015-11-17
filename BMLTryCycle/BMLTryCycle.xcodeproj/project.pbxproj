@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559371BFBC3D20039FCCD /* ProfileVC.swift */; };
+		8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559391BFBC4870039FCCD /* ProfileModel.swift */; };
+		8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */; };
 		B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */; };
-		B6D5522D1BFBA542007D9C47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5522C1BFBA542007D9C47 /* ViewController.swift */; };
+		B6D5522D1BFBA542007D9C47 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5522C1BFBA542007D9C47 /* MapVC.swift */; };
 		B6D552301BFBA542007D9C47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6D5522E1BFBA542007D9C47 /* Main.storyboard */; };
 		B6D552331BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6D552311BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld */; };
 		B6D552351BFBA542007D9C47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6D552341BFBA542007D9C47 /* Assets.xcassets */; };
 		B6D552381BFBA542007D9C47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */; };
 		B6D552431BFBA543007D9C47 /* BMLTryCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D552421BFBA543007D9C47 /* BMLTryCycleTests.swift */; };
 		B6D5524E1BFBA543007D9C47 /* BMLTryCycleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */; };
-		B6D5525C1BFBA5B6007D9C47 /* CONSTANT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */; settings = {ASSET_TAGS = (); }; };
-		B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525D1BFBA855007D9C47 /* StationModel.swift */; settings = {ASSET_TAGS = (); }; };
-		B6D552601BFBAA4B007D9C47 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */; settings = {ASSET_TAGS = (); }; };
+		B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525B1BFBA5B6007D9C47 /* Constant.swift */; };
+		B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525D1BFBA855007D9C47 /* StationModel.swift */; };
+		B6D552601BFBAA4B007D9C47 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */; };
 		B6D552621BFBABA8007D9C47 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D552611BFBABA8007D9C47 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,9 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		846559371BFBC3D20039FCCD /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		846559391BFBC4870039FCCD /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootProfileVC.swift; sourceTree = "<group>"; };
 		B6D552271BFBA542007D9C47 /* BMLTryCycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BMLTryCycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6D5522C1BFBA542007D9C47 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B6D5522C1BFBA542007D9C47 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		B6D5522F1BFBA542007D9C47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6D552321BFBA542007D9C47 /* BMLTryCycle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BMLTryCycle.xcdatamodel; sourceTree = "<group>"; };
 		B6D552341BFBA542007D9C47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,7 +59,7 @@
 		B6D552491BFBA543007D9C47 /* BMLTryCycleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BMLTryCycleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMLTryCycleUITests.swift; sourceTree = "<group>"; };
 		B6D5524F1BFBA543007D9C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CONSTANT.swift; sourceTree = "<group>"; };
+		B6D5525B1BFBA5B6007D9C47 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		B6D5525D1BFBA855007D9C47 /* StationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
 		B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 		B6D552611BFBABA8007D9C47 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -85,6 +91,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		846559311BFBC0AD0039FCCD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B6D5525D1BFBA855007D9C47 /* StationModel.swift */,
+				B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */,
+				846559391BFBC4870039FCCD /* ProfileModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		846559321BFBC0D90039FCCD /* ModelControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ModelControllers;
+			sourceTree = "<group>";
+		};
+		846559331BFBC0E10039FCCD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		846559341BFBC0E90039FCCD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B6D552341BFBA542007D9C47 /* Assets.xcassets */,
+				B6D552311BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld */,
+				B6D552391BFBA542007D9C47 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		846559351BFBC0FA0039FCCD /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B6D5522E1BFBA542007D9C47 /* Main.storyboard */,
+				B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		846559361BFBC1200039FCCD /* ViewContorllers */ = {
+			isa = PBXGroup;
+			children = (
+				B6D5522C1BFBA542007D9C47 /* MapVC.swift */,
+				846559371BFBC3D20039FCCD /* ProfileVC.swift */,
+				8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */,
+			);
+			name = ViewContorllers;
+			sourceTree = "<group>";
+		};
 		B6D5521E1BFBA542007D9C47 = {
 			isa = PBXGroup;
 			children = (
@@ -110,15 +169,13 @@
 			isa = PBXGroup;
 			children = (
 				B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */,
-				B6D5522C1BFBA542007D9C47 /* ViewController.swift */,
-				B6D5522E1BFBA542007D9C47 /* Main.storyboard */,
-				B6D552341BFBA542007D9C47 /* Assets.xcassets */,
-				B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */,
-				B6D552391BFBA542007D9C47 /* Info.plist */,
-				B6D552311BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld */,
-				B6D5525B1BFBA5B6007D9C47 /* CONSTANT.swift */,
-				B6D5525D1BFBA855007D9C47 /* StationModel.swift */,
-				B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */,
+				B6D5525B1BFBA5B6007D9C47 /* Constant.swift */,
+				846559311BFBC0AD0039FCCD /* Models */,
+				846559321BFBC0D90039FCCD /* ModelControllers */,
+				846559331BFBC0E10039FCCD /* Views */,
+				846559361BFBC1200039FCCD /* ViewContorllers */,
+				846559351BFBC0FA0039FCCD /* Storyboards */,
+				846559341BFBC0E90039FCCD /* Resources */,
 			);
 			path = BMLTryCycle;
 			sourceTree = "<group>";
@@ -279,12 +336,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6D5522D1BFBA542007D9C47 /* ViewController.swift in Sources */,
+				B6D5522D1BFBA542007D9C47 /* MapVC.swift in Sources */,
 				B6D552331BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld in Sources */,
 				B6D552601BFBAA4B007D9C47 /* Annotations.swift in Sources */,
 				B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */,
 				B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */,
-				B6D5525C1BFBA5B6007D9C47 /* CONSTANT.swift in Sources */,
+				8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */,
+				B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */,
+				846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */,
+				8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +571,7 @@
 				B6D552541BFBA543007D9C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B6D552551BFBA543007D9C47 /* Build configuration list for PBXNativeTarget "BMLTryCycleTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +580,7 @@
 				B6D552571BFBA543007D9C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B6D552581BFBA543007D9C47 /* Build configuration list for PBXNativeTarget "BMLTryCycleUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +589,7 @@
 				B6D5525A1BFBA543007D9C47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -8,4 +8,4 @@
 
 import Foundation
 
-var endpoint = NSURL(string: "http://www.bikesharetoronto.com/stations/json")
+var ENDPOINT = NSURL(string: "http://www.bikesharetoronto.com/stations/json")

@@ -9,10 +9,11 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var lblDetails: UILabel!
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -21,7 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.mapView.delegate = self
         self.locationManager.startUpdatingLocation()
         self.locationManager.requestWhenInUseAuthorization()
-        let data = NSData(contentsOfURL: endpoint!)
+        let data = NSData(contentsOfURL: ENDPOINT!)
         
         do {
             if let  json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
@@ -36,7 +37,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             
         }
     }
-
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let myView = MKAnnotationView()
+        myView.image = UIImage(named: "AppIcon-40")
+        myView.canShowCallout = false
+        return myView
+    }
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        
+        guard let anny = view.annotation else { return }
+        guard let title = anny.title else { return }
+        guard let subtitle = anny.subtitle else { return }
+        
+        lblDetails.text = "\(title!) \(subtitle!)"
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
