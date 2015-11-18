@@ -10,6 +10,8 @@
 		846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559371BFBC3D20039FCCD /* ProfileVC.swift */; };
 		8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559391BFBC4870039FCCD /* ProfileModel.swift */; };
 		8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */; };
+		84942A4A1BFD16CD00F0CFF2 /* BottomContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84942A491BFD16CD00F0CFF2 /* BottomContainerVC.swift */; };
+		84942A4C1BFD16F200F0CFF2 /* TopContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84942A4B1BFD16F200F0CFF2 /* TopContainerVC.swift */; };
 		B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */; };
 		B6D5522D1BFBA542007D9C47 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5522C1BFBA542007D9C47 /* MapVC.swift */; };
 		B6D552301BFBA542007D9C47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6D5522E1BFBA542007D9C47 /* Main.storyboard */; };
@@ -45,6 +47,8 @@
 		846559371BFBC3D20039FCCD /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		846559391BFBC4870039FCCD /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootProfileVC.swift; sourceTree = "<group>"; };
+		84942A491BFD16CD00F0CFF2 /* BottomContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomContainerVC.swift; sourceTree = "<group>"; };
+		84942A4B1BFD16F200F0CFF2 /* TopContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopContainerVC.swift; sourceTree = "<group>"; };
 		B6D552271BFBA542007D9C47 /* BMLTryCycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BMLTryCycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6D5522C1BFBA542007D9C47 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 				B6D5522C1BFBA542007D9C47 /* MapVC.swift */,
 				846559371BFBC3D20039FCCD /* ProfileVC.swift */,
 				8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */,
+				84942A491BFD16CD00F0CFF2 /* BottomContainerVC.swift */,
+				84942A4B1BFD16F200F0CFF2 /* TopContainerVC.swift */,
 			);
 			name = ViewContorllers;
 			sourceTree = "<group>";
@@ -339,9 +345,11 @@
 				B6D5522D1BFBA542007D9C47 /* MapVC.swift in Sources */,
 				B6D552331BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld in Sources */,
 				B6D552601BFBAA4B007D9C47 /* Annotations.swift in Sources */,
+				84942A4A1BFD16CD00F0CFF2 /* BottomContainerVC.swift in Sources */,
 				B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */,
 				B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */,
 				8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */,
+				84942A4C1BFD16F200F0CFF2 /* TopContainerVC.swift in Sources */,
 				B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */,
 				846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */,
 				8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */,
