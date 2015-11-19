@@ -78,6 +78,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
        //self.bottomContainerVC.bottomContainerBikeLabel.text = "\(title!) \(subtitle!)"
         
+
+        
     }
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
