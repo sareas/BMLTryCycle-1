@@ -10,6 +10,10 @@ import UIKit
 
 class BottomContainerVC: UIViewController {
 
+    @IBOutlet weak var bottomContainerBikeLabel: UILabel!
+    
+    @IBOutlet weak var bottomContainerDockLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
