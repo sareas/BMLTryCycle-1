@@ -13,6 +13,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var btmCV: UIView!
     @IBOutlet weak var topCV: UIView!
+    //Controls for the UI
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btmToSuperViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var topToSuperViewConstraint: NSLayoutConstraint!
@@ -26,30 +28,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     weak var btmContainerVC: BottomContainerVC?
     weak var topContainerVC: TopContainerVC?
     
+    //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setStage()
-        self.locationManager.delegate = self
-        self.mapView.delegate = self
-        self.locationManager.startUpdatingLocation()
-        self.locationManager.requestWhenInUseAuthorization()
-        let data = NSData(contentsOfURL: ENDPOINT!)
+        configureMapView()
+        //Should exist for everyone to access the controllers on the appDelegate
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
         
         
-        
-        do {
-            if let  json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-                let station = Station(json: json)
-                
-                for pins in station.mapPins {
-                    guard let myPins = pins as? Annotations else {return }
-                    mapView.addAnnotation(myPins)
-                }
-            }
-        } catch {
-            
-        }
+        //Fareed & Adam's testing code
+        let coordinates = appDelegate.reverseGeocodeController.reverseGeocode("1600 Amphitheatre Parkway, Mountain View, CA")
+        let testPin = Annotations(coordinate: coordinates.coordinate, title: "test", subtitle: "ohh yaaaa")
+        mapView.addAnnotation(testPin)
+        centerMapOnLocation(coordinates)
     }
+    
     override func viewDidLayoutSubviews() {
         if stageIsSet == false {
             stageIsSet = !stageIsSet
@@ -61,9 +54,17 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         topToSuperViewConstraint.constant = -topCVHeight
         view.layoutIfNeeded()
     }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    
+    //MapView Functions
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let myView = MKAnnotationView()
-        myView.image = UIImage(named: "EVVA")
+        myView.image = UIImage(named: "AppIcon-40")
         myView.canShowCallout = false
         return myView
     }
@@ -76,17 +77,18 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             title = anny.title,
             subtitle = anny.subtitle else { return }
         
-       //self.bottomContainerVC.bottomContainerBikeLabel.text = "\(title!) \(subtitle!)"
+        //self.bottomContainerVC.bottomContainerBikeLabel.text = "\(title!) \(subtitle!)"
         
-
+        
         
     }
+    
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
             print("container open")
         }
     }
-
+    
     func toggleUpBtmCV(completion:(Bool) -> ()) {
         var topContainOffset: CGFloat = 0
         var bottomContainOffset: CGFloat = 0
@@ -103,24 +105,50 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                 self.btmToSuperViewConstraint.constant = bottomContainOffset
                 self.topToSuperViewConstraint.constant = topContainOffset
                 self.view.layoutIfNeeded()
-            
+                
             })
             { (complete) -> Void in
                 
         }
         
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-//            self.btmToSuperViewConstraint.constant = containOffset
-//            self.view.layoutIfNeeded()
-//            }) { (complete) -> Void in
-//                completion(complete)
-//        }
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        //            self.btmToSuperViewConstraint.constant = containOffset
+        //            self.view.layoutIfNeeded()
+        //            }) { (complete) -> Void in
+        //                completion(complete)
+        //        }
     }
     
+    func configureMapView() {
+        self.locationManager.delegate = self
+        self.mapView.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
+            data = NSData(contentsOfURL: url) else {return}
+        do {
+            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                let station = Station(json: json)
+                for pins in station.mapPins {
+                    guard let myPins = pins as? Annotations else {return }
+                    mapView.addAnnotation(myPins)
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    
+    //Mustafa and Sabrina Code
+    let regionRadius :CLLocationDistance = 3000
+    
+    func centerMapOnLocation(location : CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+    }
     
 }
 
