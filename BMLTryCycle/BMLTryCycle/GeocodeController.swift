@@ -9,10 +9,10 @@
 import UIKit
 import CoreLocation
 
-class ReverseGeocodeController: NSObject {
+class GeocodeController: NSObject {
 
-    //Reverse Geocode
-    func reverseGeocode(address:String) -> CLLocation {
+    //Geocode API
+    func geocodeAPI(address:String) -> CLLocation {
         
         //Preparing the data
         let formattedAddress = generateURL(address)
@@ -53,4 +53,39 @@ class ReverseGeocodeController: NSObject {
         return result
     }
     
+    func executeGeocode(searchBar:UITextField, myVC:MapVC) {
+        searchBar.resignFirstResponder()
+        
+        guard var searchingString = searchBar.text where searchingString.characters.count > 0 else { return }
+        searchingString = searchingString + " Toronto Ontario"
+        
+        geocodeUserLocation(searchingString) { (foundLocation) -> () in
+            let pin = Annotations(coordinate: (foundLocation.coordinate), title: "", subtitle: "")
+            myVC.mapView.addAnnotation(pin)
+            myVC.centerMapOnLocation(foundLocation)
+        }
+    }
+    
+    
+    func geocodeUserLocation(addressString:String, returnClosure:(CLLocation)->()) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(addressString) { (possiblePlacemarks, possibleError) -> Void in
+            if let error = possibleError {
+                print(error.localizedDescription)
+            } else {
+                guard let actualPlacemarks = possiblePlacemarks else {
+                    returnClosure(CLLocation())
+                    return
+                }
+                for placemark in actualPlacemarks {
+                    guard let foundLocation = placemark.location else {
+                        returnClosure(CLLocation())
+                        return
+                    }
+                    returnClosure(foundLocation)
+                }
+            }
+        }
+        
+    }
 }

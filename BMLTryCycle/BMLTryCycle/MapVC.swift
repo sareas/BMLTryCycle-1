@@ -11,14 +11,17 @@ import MapKit
 
 class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    //Controls
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btmCV: UIView!
     @IBOutlet weak var topCV: UIView!
-    //Controls for the UI
+    @IBOutlet weak var searchBar: UITextField!
     
-    @IBOutlet weak var mapView: MKMapView!
+    //Manipulated Contraints
     @IBOutlet weak var btmToSuperViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var topToSuperViewConstraint: NSLayoutConstraint!
     
+    //
     let locationManager = CLLocationManager()
     var btmCVHeight:CGFloat = 152.0
     var topCVHeight:CGFloat = 67.0
@@ -32,34 +35,25 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMapView()
-        //Should exist for everyone to access the controllers on the appDelegate
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
-        
-        
-        //Fareed & Adam's testing code
-        let coordinates = appDelegate.reverseGeocodeController.reverseGeocode("1600 Amphitheatre Parkway, Mountain View, CA")
-        let testPin = Annotations(coordinate: coordinates.coordinate, title: "test", subtitle: "ohh yaaaa")
-        mapView.addAnnotation(testPin)
-        centerMapOnLocation(coordinates)
     }
-    
-    override func viewDidLayoutSubviews() {
-        if stageIsSet == false {
-            stageIsSet = !stageIsSet
-            setStage()
-        }
-    }
-    func setStage() {
-        btmToSuperViewConstraint.constant = -btmCVHeight
-        topToSuperViewConstraint.constant = -topCVHeight
-        view.layoutIfNeeded()
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func SearchButton(sender: AnyObject) {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
+    }
+    
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let _ = touches.first {
+            self.view.endEditing(true)
+        }
+        super.touchesBegan(touches, withEvent: event)
+    }
     
     //MapView Functions
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -69,18 +63,42 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         return myView
     }
     
+    func configureMapView() {
+        self.locationManager.delegate = self
+        self.mapView.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
+            data = NSData(contentsOfURL: url) else {return}
+        do {
+            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                let station = Station(json: json)
+                for pins in station.mapPins {
+                    guard let myPins = pins as? Annotations else {return }
+                    mapView.addAnnotation(myPins)
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    //*** Code Implemented by Mustafa and Sabrina
+    let regionRadius :CLLocationDistance = 300
+    
+    func centerMapOnLocation(location : CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+    }
+    
+    
+    //*** Code Implemented by Spencer and Heather
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
             print("container open")
         }
-        guard let anny = view.annotation,
-            title = anny.title,
-            subtitle = anny.subtitle else { return }
-        
-        //self.bottomContainerVC.bottomContainerBikeLabel.text = "\(title!) \(subtitle!)"
-        
-        
-        
     }
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
@@ -110,45 +128,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             { (complete) -> Void in
                 
         }
-        
-        //        UIView.animateWithDuration(0.3, animations: { () -> Void in
-        //            self.btmToSuperViewConstraint.constant = containOffset
-        //            self.view.layoutIfNeeded()
-        //            }) { (complete) -> Void in
-        //                completion(complete)
-        //        }
     }
     
-    func configureMapView() {
-        self.locationManager.delegate = self
-        self.mapView.delegate = self
-        self.locationManager.startUpdatingLocation()
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
-            data = NSData(contentsOfURL: url) else {return}
-        do {
-            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-                let station = Station(json: json)
-                for pins in station.mapPins {
-                    guard let myPins = pins as? Annotations else {return }
-                    mapView.addAnnotation(myPins)
-                }
-            }
-        } catch {
-            
+    //Heather & Spencer Animations
+    override func viewDidLayoutSubviews() {
+        if stageIsSet == false {
+            stageIsSet = !stageIsSet
+            setStage()
         }
     }
     
-    
-    //Mustafa and Sabrina Code
-    let regionRadius :CLLocationDistance = 3000
-    
-    func centerMapOnLocation(location : CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-        
+    func setStage() {
+        btmToSuperViewConstraint.constant = -btmCVHeight
+        topToSuperViewConstraint.constant = -topCVHeight
+        view.layoutIfNeeded()
     }
-    
+        
 }
 
