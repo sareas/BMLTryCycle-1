@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01F6829D1BFE850F007F02DE /* GeocodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6829C1BFE850F007F02DE /* GeocodeController.swift */; };
 		846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559371BFBC3D20039FCCD /* ProfileVC.swift */; };
 		8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559391BFBC4870039FCCD /* ProfileModel.swift */; };
 		8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01F6829C1BFE850F007F02DE /* GeocodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeController.swift; sourceTree = "<group>"; };
 		846559371BFBC3D20039FCCD /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		846559391BFBC4870039FCCD /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootProfileVC.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01F682991BFE8014007F02DE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				01F6829C1BFE850F007F02DE /* GeocodeController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		846559311BFBC0AD0039FCCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +191,7 @@
 				846559331BFBC0E10039FCCD /* Views */,
 				846559361BFBC1200039FCCD /* ViewContorllers */,
 				846559351BFBC0FA0039FCCD /* Storyboards */,
+				01F682991BFE8014007F02DE /* Controllers */,
 				846559341BFBC0E90039FCCD /* Resources */,
 			);
 			path = BMLTryCycle;
@@ -350,6 +361,7 @@
 				B6D5522B1BFBA542007D9C47 /* AppDelegate.swift in Sources */,
 				8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */,
 				84942A4C1BFD16F200F0CFF2 /* TopContainerVC.swift in Sources */,
+				01F6829D1BFE850F007F02DE /* GeocodeController.swift in Sources */,
 				B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */,
 				846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */,
 				8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */,
