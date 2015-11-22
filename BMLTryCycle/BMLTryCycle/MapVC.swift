@@ -34,6 +34,43 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMapView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if stageIsSet == false {
+            stageIsSet = !stageIsSet
+            setStage()
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func SearchButton(sender: AnyObject) {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
+    }
+    
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let _ = touches.first {
+            self.view.endEditing(true)
+        }
+        super.touchesBegan(touches, withEvent: event)
+    }
+    
+    //MapView Functions
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let myView = MKAnnotationView()
+        myView.image = UIImage(named: "AppIcon-40")
+        myView.canShowCallout = false
+        return myView
+    }
+    
+    func configureMapView() {
         self.locationManager.delegate = self
         self.mapView.delegate = self
         self.locationManager.startUpdatingLocation()
@@ -54,15 +91,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         }
     }
     
-    //*** Code Implemented by Mustafa and Sabrina
-    let regionRadius :CLLocationDistance = 300
-    
-    func centerMapOnLocation(location : CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-        
+    func setStage() {
+        btmToSuperViewConstraint.constant = -btmCVHeight
+        topToSuperViewConstraint.constant = -topCVHeight
+        view.layoutIfNeeded()
     }
-    
+        
     
     //*** Code Implemented by Spencer and Heather
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
@@ -110,13 +144,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             { (complete) -> Void in
                 
         }
-        
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-//            self.btmToSuperViewConstraint.constant = containOffset
-//            self.view.layoutIfNeeded()
-//            }) { (complete) -> Void in
-//                completion(complete)
-//        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -133,24 +160,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             
         }
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    //Heather & Spencer Animations
-    override func viewDidLayoutSubviews() {
-        if stageIsSet == false {
-            stageIsSet = !stageIsSet
-            setStage()
-        }
-    }
     
-    func setStage() {
-        btmToSuperViewConstraint.constant = -btmCVHeight
-        topToSuperViewConstraint.constant = -topCVHeight
-        view.layoutIfNeeded()
-    }
-        
 }
 
