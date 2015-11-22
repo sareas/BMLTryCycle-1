@@ -162,5 +162,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     
+    
+    let regionRadius :CLLocationDistance = 300
+    
+    func centerMapOnLocation(location : CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+    }
+    
 }
 

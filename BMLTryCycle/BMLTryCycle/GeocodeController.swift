@@ -62,7 +62,7 @@ class GeocodeController: NSObject {
         geocodeUserLocation(searchingString) { (foundLocation) -> () in
             let pin = Annotations(coordinate: (foundLocation.coordinate), title: "", subtitle: "")
             myVC.mapView.addAnnotation(pin)
-          //  myVC.centerMapOnLocation(foundLocation)
+            myVC.centerMapOnLocation(foundLocation)
         }
     }
     
@@ -86,6 +86,5 @@ class GeocodeController: NSObject {
                 }
             }
         }
-        
     }
 }
