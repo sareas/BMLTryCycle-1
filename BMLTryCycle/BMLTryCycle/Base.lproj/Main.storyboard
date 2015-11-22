@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="67" id="E8Y-7e-RF0"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="iJN-WD-hU5" kind="embed" id="y2h-ud-29p"/>
+                                    <segue destination="iJN-WD-hU5" kind="embed" identifier="topContainerSegue" id="y2h-ud-29p"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y34-7o-mSr">
@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="height" constant="152" id="Xqb-b6-iQC"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="swI-TJ-lOc" kind="embed" id="5K4-ln-mV4"/>
+                                    <segue destination="swI-TJ-lOc" kind="embed" identifier="bottomContainerSegue" id="5K4-ln-mV4"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2189" y="378"/>
+            <point key="canvasLocation" x="2203" y="678"/>
         </scene>
         <!--Root ProfileVC-->
         <scene sceneID="Zzv-em-641">
@@ -172,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mUX-eC-UKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3057" y="378"/>
+            <point key="canvasLocation" x="2999" y="678"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="f8R-rJ-H6o">
@@ -296,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmH-Ql-A36" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2039" y="1048"/>
+            <point key="canvasLocation" x="2203" y="1223"/>
         </scene>
         <!--Top ContainerVC-->
         <scene sceneID="mm5-7t-vF9">
@@ -325,10 +325,13 @@
                             <constraint firstItem="zTp-cg-nt3" firstAttribute="centerX" secondItem="y7u-RG-0Zc" secondAttribute="centerX" id="GK2-dZ-27V"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bikeDockLocationLabel" destination="zTp-cg-nt3" id="wNI-pg-ZMk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pv3-Qj-MRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2189" y="-103.5"/>
+            <point key="canvasLocation" x="2181" y="-83.5"/>
         </scene>
     </scenes>
 </document>

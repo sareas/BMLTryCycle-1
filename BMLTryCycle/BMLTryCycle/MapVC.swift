@@ -28,7 +28,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setStage()
         self.locationManager.delegate = self
         self.mapView.delegate = self
         self.locationManager.startUpdatingLocation()
@@ -72,13 +71,17 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         toggleUpBtmCV { (complete) -> () in
             print("container open")
         }
-        guard let anny = view.annotation,
-            title = anny.title,
-            subtitle = anny.subtitle else { return }
+//        guard let anny = view.annotation,
+//            title = anny.title,
+//            subtitle = anny.subtitle else { return }
+        let locationTitle = "Location Title"
         
-       //self.bottomContainerVC.bottomContainerBikeLabel.text = "\(title!) \(subtitle!)"
+        // Access the number of bikes and available Docks info and put here:
+        //btmContainerVC?.bottomContainerBikeLabel.text =
+        //btmContainerVC?.bottomContainerDockLabel.text =
         
-
+        topContainerVC?.bikeDockLocationLabel.text = locationTitle
+        
         
     }
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
@@ -115,6 +118,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 //            }) { (complete) -> Void in
 //                completion(complete)
 //        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "topContainerSegue" {
+            guard let mpvc = segue.destinationViewController as? TopContainerVC else {return}
+            mpvc.mapVC = self
+            topContainerVC = mpvc
+            
+        }
+        if segue.identifier == "bottomContainerSegue" {
+            guard let mpvc = segue.destinationViewController as? BottomContainerVC else {return}
+            mpvc.mapVC = self
+            btmContainerVC = mpvc
+            
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -13,6 +13,8 @@ class BottomContainerVC: UIViewController {
     @IBOutlet weak var bottomContainerBikeLabel: UILabel!
     
     @IBOutlet weak var bottomContainerDockLabel: UILabel!
+    weak var mapVC: MapVC?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

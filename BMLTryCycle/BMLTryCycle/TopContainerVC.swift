@@ -9,6 +9,10 @@
 import UIKit
 
 class TopContainerVC: UIViewController {
+    
+    
+    @IBOutlet weak var bikeDockLocationLabel: UILabel!
+    weak var mapVC: MapVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +24,8 @@ class TopContainerVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
     /*
