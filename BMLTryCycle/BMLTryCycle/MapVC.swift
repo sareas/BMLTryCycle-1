@@ -5,24 +5,29 @@
 //  Created by Mustafa Al-Hayali on 2015-11-17.
 //  Copyright © 2015 Mustafa Al-Hayali. All rights reserved.
 //
+// Fareed & Adam
+// Implemented the UITextFieldDelegate to manage the search bar outlet
+// Initialed delegate in view did load
 
 import UIKit
 import MapKit
 
-class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
     
-    //Controls
+    //View Objects Controls
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btmCV: UIView!
     @IBOutlet weak var topCV: UIView!
     @IBOutlet weak var searchBar: UITextField!
     
-    //Manipulated Contraints
+    //View Annimation Contraints
     @IBOutlet weak var btmToSuperViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var topToSuperViewConstraint: NSLayoutConstraint!
     
-    //
+    //Managers
     let locationManager = CLLocationManager()
+    
+    //
     var btmCVHeight:CGFloat = 152.0
     var topCVHeight:CGFloat = 67.0
     var btmCVReveiled = false
@@ -35,6 +40,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMapView()
+        searchBar.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,12 +54,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    //UI controllers and delegate commands
     @IBAction func SearchButton(sender: AnyObject) {
         guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
         appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
     }
     
+    func textFieldDidEndEditing(textField: UITextField){
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
+    }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let _ = touches.first {
