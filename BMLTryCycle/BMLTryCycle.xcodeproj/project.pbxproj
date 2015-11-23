@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01F6829D1BFE850F007F02DE /* GeocodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6829C1BFE850F007F02DE /* GeocodeController.swift */; };
+		703DE8611C03CA02004B0064 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 703DE8601C03CA02004B0064 /* AppIcon.png */; };
 		846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559371BFBC3D20039FCCD /* ProfileVC.swift */; };
 		8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846559391BFBC4870039FCCD /* ProfileModel.swift */; };
 		8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		01F6829C1BFE850F007F02DE /* GeocodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodeController.swift; sourceTree = "<group>"; };
+		703DE8601C03CA02004B0064 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon.png; path = Assets.xcassets/AppIcon.png; sourceTree = "<group>"; };
 		846559371BFBC3D20039FCCD /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		846559391BFBC4870039FCCD /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8465593B1BFBC8AF0039FCCD /* RootProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootProfileVC.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				B6D552341BFBA542007D9C47 /* Assets.xcassets */,
+				703DE8601C03CA02004B0064 /* AppIcon.png */,
 				B6D552311BFBA542007D9C47 /* BMLTryCycle.xcdatamodeld */,
 				B6D552391BFBA542007D9C47 /* Info.plist */,
 			);
@@ -326,6 +329,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703DE8611C03CA02004B0064 /* AppIcon.png in Resources */,
 				B6D552381BFBA542007D9C47 /* LaunchScreen.storyboard in Resources */,
 				B6D552351BFBA542007D9C47 /* Assets.xcassets in Resources */,
 				B6D552301BFBA542007D9C47 /* Main.storyboard in Resources */,

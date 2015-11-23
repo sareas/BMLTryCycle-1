@@ -19,6 +19,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     @IBOutlet weak var btmCV: UIView!
     @IBOutlet weak var topCV: UIView!
     @IBOutlet weak var searchBar: UITextField!
+    @IBOutlet weak var lblDetails: UILabel!
     
     //View Annimation Contraints
     @IBOutlet weak var btmToSuperViewConstraint: NSLayoutConstraint!
@@ -26,12 +27,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     
     //Managers
     let locationManager = CLLocationManager()
+    let station = Station()
     
     //
     var btmCVHeight:CGFloat = 152.0
     var topCVHeight:CGFloat = 67.0
     var btmCVReveiled = false
     var stageIsSet = false
+    let regionRadius :CLLocationDistance = 300
     
     weak var btmContainerVC: BottomContainerVC?
     weak var topContainerVC: TopContainerVC?
@@ -39,8 +42,32 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureMapView()
+        
+        print("mapvc \(btmContainerVC?.bottomContainerBikeLabel.text)")
+        
         searchBar.delegate = self
+        mapView.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
+        for pins in station.mapPins {
+            guard let myPins = pins as? Annotations else {return }
+            mapView.addAnnotation(myPins)
+        }
+        
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        if (locationManager.location != nil){
+            centerMapOnLocation(locationManager.location!)
+        }
+        
+    }
+    
+    func centerMapOnLocation(location : CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,32 +106,76 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     
     //MapView Functions
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let myView = MKAnnotationView()
-        myView.image = UIImage(named: "AppIcon-40")
-        myView.canShowCallout = false
-        return myView
+        
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        var pinView : MKAnnotationView?
+        let reuseID : String = pinID
+        if reuseID  == "bikePin"{
+            var bikePinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
+            if bikePinView == nil {
+                bikePinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "bikePin")
+                var availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
+                for key in availableBikesKeysArray{
+                    if station.parsedAvailableBikes[key] as! Int > 10 {
+                        print(station.parsedAvailableBikes[key] as! Int)
+                        bikePinView.image = UIImage(named: "bikeicon")
+                    }else{
+                        bikePinView.image = UIImage(named: "bikeicon1")
+                    }
+                }
+                bikePinView.bounds = CGRectMake(0, 0, 25.0, 25.0)
+            } else {
+                bikePinView.annotation = annotation
+            }
+            pinView =  bikePinView
+        }else if reuseID == "dockPin" {
+            var dockPinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
+            if dockPinView == nil {
+                dockPinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "dockPin")
+                var availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
+                for key in availableDocksKeysArray{
+                    if station.parsedAvailableDocks[key] as! Int > 10 {
+                        print(station.parsedAvailableDocks[key] as! Int)
+                        dockPinView.image = UIImage(named: "dockicon")
+                    }else{
+                        dockPinView.image = UIImage(named: "dockicon1")
+                    }
+                }
+                dockPinView.bounds = CGRectMake(0, 0, 25.0, 25.0)
+            } else {
+                
+                dockPinView.annotation = annotation
+            }
+            pinView =  dockPinView
+        }
+        return pinView
     }
     
-    func configureMapView() {
-        self.locationManager.delegate = self
-        self.mapView.delegate = self
-        self.locationManager.startUpdatingLocation()
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
-            data = NSData(contentsOfURL: url) else {return}
-        do {
-            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-                let station = Station(json: json)
-                for pins in station.mapPins {
-                    guard let myPins = pins as? Annotations else {return }
-                    mapView.addAnnotation(myPins)
-                }
-            }
-        } catch {
-            
-        }
-    }
+    
+    
+//    func configureMapView() {
+//        self.locationManager.delegate = self
+//        self.mapView.delegate = self
+//        self.locationManager.startUpdatingLocation()
+//        self.locationManager.requestWhenInUseAuthorization()
+//        
+//        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
+//            data = NSData(contentsOfURL: url) else {return}
+//        do {
+//            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+//                let station = Station(json: json)
+//                for pins in station.mapPins {
+//                    guard let myPins = pins as? Annotations else {return }
+//                    mapView.addAnnotation(myPins)
+//                }
+//            }
+//        } catch {
+//            
+//        }
+//    }
     
     func setStage() {
         btmToSuperViewConstraint.constant = -btmCVHeight
@@ -116,26 +187,34 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     //*** Code Implemented by Spencer and Heather
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
-            print("container open")
+            //print("container open")
         }
 //        guard let anny = view.annotation,
 //            title = anny.title,
 //            subtitle = anny.subtitle else { return }
-        let locationTitle = "Location Title"
+        
+        guard let anny = view.annotation else { return }
+        guard let title = anny.title else { return }
+        guard let subtitle = anny.subtitle else { return }
         
         // Access the number of bikes and available Docks info and put here:
-        //btmContainerVC?.bottomContainerBikeLabel.text =
+        if let containerBike = title {
+            btmContainerVC?.bottomContainerBikeLabel?.text? = containerBike
+            
+        }
+        
+       //
+        
+        print("station \(station.parsedAvailableBikes.valueForKey(title!))")
+        
+        print("container \(btmContainerVC?.bottomContainerBikeLabel.text)")
+        
         //btmContainerVC?.bottomContainerDockLabel.text =
         
-        topContainerVC?.bikeDockLocationLabel.text = locationTitle
+        topContainerVC?.bikeDockLocationLabel.text = title
         
         
-    }
-    
-    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
-        toggleUpBtmCV { (complete) -> () in
-            print("container open")
-        }
+        
     }
     
     func toggleUpBtmCV(completion:(Bool) -> ()) {
@@ -174,16 +253,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             btmContainerVC = mpvc
             
         }
-    }
-    
-    
-    
-    let regionRadius :CLLocationDistance = 300
-    
-    func centerMapOnLocation(location : CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-        
     }
     
 }

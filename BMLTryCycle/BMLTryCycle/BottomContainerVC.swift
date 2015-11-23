@@ -18,6 +18,8 @@ class BottomContainerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("bottom vc \(bottomContainerBikeLabel.text)")
 
         // Do any additional setup after loading the view.
     }
