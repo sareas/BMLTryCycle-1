@@ -20,6 +20,14 @@ class GeocodeController: NSObject {
         searchingString = searchingString + " Toronto Ontario"
         
         geocodeUserLocation(searchingString) { (foundLocation) -> () in
+            if(foundLocation.coordinate.latitude == 0){
+                let alert = UIAlertController(title: "Error", message: "The location provided does not map to a place in Toronto", preferredStyle: .Alert)
+                let okay = UIAlertAction(title: "Okay", style: .Default) { (UIAlertAction) -> Void in
+                }
+                alert.addAction(okay)
+                myVC.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
             let pin = Annotations(coordinate: (foundLocation.coordinate), title: "", subtitle: "")
             
             myVC.mapView.addAnnotation(pin)
@@ -33,6 +41,7 @@ class GeocodeController: NSObject {
         geoCoder.geocodeAddressString(addressString) { (possiblePlacemarks, possibleError) -> Void in
             if let error = possibleError {
                 print(error.localizedDescription)
+                returnClosure(CLLocation())
             } else {
                 guard let actualPlacemarks = possiblePlacemarks else {
                     returnClosure(CLLocation())
@@ -50,7 +59,7 @@ class GeocodeController: NSObject {
     }
     
     //Geocode API
-    func geocodeAPI(address:String) -> CLLocation {
+    func geocodeAPI(address:String) throws -> CLLocation {
         
         //Preparing the data
         let formmatedURL = generateURL(address)
@@ -64,8 +73,7 @@ class GeocodeController: NSObject {
             returnJSON = json
             
         } catch let error as NSError {
-            print("Had an error loading the reverse geolocation data: \(error)")
-            abort()
+            throw error
         }
         
         //Extracting Json
