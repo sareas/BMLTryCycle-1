@@ -1,9 +1,9 @@
 //
-//  ReverseGeocodeController.swift
+//  GeocodeController.swift
 //  BMLTryCycle
 //
-//  Created by FareedQ on 2015-11-19.
-//  Copyright © 2015 Mustafa Al-Hayali. All rights reserved.
+// This object was created by Fareed and Adam
+
 //
 
 import UIKit
@@ -11,12 +11,49 @@ import CoreLocation
 
 class GeocodeController: NSObject {
 
+    
+    //This function is to allow a text feild to search a location
+    func executeGeocode(searchBar:UITextField, myVC:MapVC) {
+        searchBar.resignFirstResponder()
+        
+        guard var searchingString = searchBar.text where searchingString.characters.count > 0 else { return }
+        searchingString = searchingString + " Toronto Ontario"
+        
+        geocodeUserLocation(searchingString) { (foundLocation) -> () in
+            let pin = Annotations(coordinate: (foundLocation.coordinate), title: "", subtitle: "")
+            
+            myVC.mapView.addAnnotation(pin)
+            myVC.centerMapOnLocation(foundLocation)
+        }
+    }
+    
+    // This will execute the in the in code
+    func geocodeUserLocation(addressString:String, returnClosure:(CLLocation)->()) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(addressString) { (possiblePlacemarks, possibleError) -> Void in
+            if let error = possibleError {
+                print(error.localizedDescription)
+            } else {
+                guard let actualPlacemarks = possiblePlacemarks else {
+                    returnClosure(CLLocation())
+                    return
+                }
+                for placemark in actualPlacemarks {
+                    guard let foundLocation = placemark.location else {
+                        returnClosure(CLLocation())
+                        return
+                    }
+                    returnClosure(foundLocation)
+                }
+            }
+        }
+    }
+    
     //Geocode API
     func geocodeAPI(address:String) -> CLLocation {
         
         //Preparing the data
-        let formattedAddress = generateURL(address)
-        let formmatedURL = REVERSE_GEOLOCATION_API_URL_STRING + formattedAddress + REVERSE_GEOLOCATION_API_KEY
+        let formmatedURL = generateURL(address)
         guard let url = NSURL(string: formmatedURL), data = NSData(contentsOfURL: url) else {return CLLocation()}
         var returnJSON: AnyObject!
         var returnCoordinates = CLLocation()
@@ -47,44 +84,12 @@ class GeocodeController: NSObject {
         return returnCoordinates
     }
     
-    
+    //function to create the URL
     func generateURL(address:String) -> String {
         let result = "address=" + convertStringToURL(address) + "&key="
-        return result
-    }
-    
-    func executeGeocode(searchBar:UITextField, myVC:MapVC) {
-        searchBar.resignFirstResponder()
-        
-        guard var searchingString = searchBar.text where searchingString.characters.count > 0 else { return }
-        searchingString = searchingString + " Toronto Ontario"
-        
-        geocodeUserLocation(searchingString) { (foundLocation) -> () in
-            let pin = Annotations(coordinate: (foundLocation.coordinate), title: "", subtitle: "")
-            myVC.mapView.addAnnotation(pin)
-            myVC.centerMapOnLocation(foundLocation)
-        }
+        return REVERSE_GEOLOCATION_API_URL_STRING + result + REVERSE_GEOLOCATION_API_KEY
     }
     
     
-    func geocodeUserLocation(addressString:String, returnClosure:(CLLocation)->()) {
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(addressString) { (possiblePlacemarks, possibleError) -> Void in
-            if let error = possibleError {
-                print(error.localizedDescription)
-            } else {
-                guard let actualPlacemarks = possiblePlacemarks else {
-                    returnClosure(CLLocation())
-                    return
-                }
-                for placemark in actualPlacemarks {
-                    guard let foundLocation = placemark.location else {
-                        returnClosure(CLLocation())
-                        return
-                    }
-                    returnClosure(foundLocation)
-                }
-            }
-        }
-    }
+
 }
