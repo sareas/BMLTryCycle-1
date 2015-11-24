@@ -223,7 +223,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         }
     }
 
-
     
 }
 
