@@ -63,11 +63,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         
     }
     
-    func centerMapOnLocation(location : CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
     override func viewDidLayoutSubviews() {
         if stageIsSet == false {
             stageIsSet = !stageIsSet
@@ -79,35 +74,27 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         super.didReceiveMemoryWarning()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "topContainerSegue" {
+            guard let tempVC = segue.destinationViewController as? TopContainerVC else {return}
+            tempVC.mapVC = self
+            self.topContainerVC = tempVC
+        }
+        if segue.identifier == "bottomContainerSegue" {
+            guard let tempVC = segue.destinationViewController as? BottomContainerVC else {return}
+            tempVC.mapVC = self
+            self.btmContainerVC = tempVC
+        }
+    }
+    
     //UI controllers and delegate commands
     @IBAction func SearchButton(sender: AnyObject) {
         searchBar.resignFirstResponder()
-        
-        executeGeocode(self.searchBar, myVC: self)
+        executeGeocode(self.searchBar)
     }
     
     func textFieldDidEndEditing(textField: UITextField){
-        executeGeocode(self.searchBar, myVC: self)
-    }
-    
-    //This function is to allow a text feild to search a location
-    func executeGeocode(searchBar:UITextField, myVC:MapVC) {
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
-        
-        guard let searchingString = searchBar.text where searchingString.characters.count > 0 else { return }
-        
-        appDelegate.geocodeController.geocodeUserLocation(searchingString + " " + CURRENT_CITY_STRING) { (foundLocation) -> () in
-            if(foundLocation.coordinate.latitude == 0){
-                let alert = UIAlertController(title: "Error", message: "The location provided did not map to a place in Toronto", preferredStyle: .Alert)
-                let okay = UIAlertAction(title: "Okay", style: .Default) { (UIAlertAction) -> Void in
-                }
-                alert.addAction(okay)
-                myVC.presentViewController(alert, animated: true, completion: nil)
-                return
-            }
-            
-            myVC.centerMapOnLocation(foundLocation)
-        }
+        executeGeocode(self.searchBar)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -170,19 +157,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         return pinView
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "topContainerSegue" {
-            guard let tempVC = segue.destinationViewController as? TopContainerVC else {return}
-            tempVC.mapVC = self
-            self.topContainerVC = tempVC
-        }
-        if segue.identifier == "bottomContainerSegue" {
-            guard let tempVC = segue.destinationViewController as? BottomContainerVC else {return}
-            tempVC.mapVC = self
-            self.btmContainerVC = tempVC
-        }
-    }
-    
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
         }
@@ -196,6 +170,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         topContainerVC?.bikeDockLocationLabel.text = title
     }
     
+    //custom functions
     func setStage() {
         btmToSuperViewConstraint.constant = -btmCVHeight
         topToSuperViewConstraint.constant = -topCVHeight
@@ -225,7 +200,33 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         }
     }
     
-
+    func executeGeocode(searchBar:UITextField) {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        guard let searchString = searchBar.text where searchString.characters.count > 0 else { return }
+        
+        appDelegate.geocodeController.geocodeUserLocation(searchString + " " + CURRENT_CITY_STRING) { (foundLocation) -> () in
+            
+            //locations returned with the long and lat of (0,0) are returned as errors
+            if(foundLocation.coordinate.latitude == 0){
+                self.alertMessage("The location provided did not map to a place in Toronto")
+                return
+            }
+            
+            self.centerMapOnLocation(foundLocation)
+        }
+    }
     
+    func alertMessage(message:String){
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+        let okay = UIAlertAction(title: "Okay", style: .Default) { (UIAlertAction) -> Void in
+        }
+        alert.addAction(okay)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func centerMapOnLocation(location : CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
 }
 
