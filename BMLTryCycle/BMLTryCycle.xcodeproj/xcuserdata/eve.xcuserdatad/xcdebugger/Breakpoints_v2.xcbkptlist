@@ -17,5 +17,19 @@
             endingLineNumber = "172">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../../../var/folders/j7/g1r3wsbx1xbg2lhmy5k1kw8m0000gn/T/XcodeMergeSession-d1779a825d344643c1dfb028b31f4db8019d6f45/MergeDocument-MapVC.swift"
+            timestampString = "470032568.046519"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
