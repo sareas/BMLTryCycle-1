@@ -43,8 +43,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("mapvc \(btmContainerVC?.bottomContainerBikeLabel.text)")
-        
         searchBar.delegate = self
         mapView.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -83,13 +81,33 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     
     //UI controllers and delegate commands
     @IBAction func SearchButton(sender: AnyObject) {
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
-        appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
+        searchBar.resignFirstResponder()
+        
+        executeGeocode(self.searchBar, myVC: self)
     }
     
     func textFieldDidEndEditing(textField: UITextField){
+        executeGeocode(self.searchBar, myVC: self)
+    }
+    
+    //This function is to allow a text feild to search a location
+    func executeGeocode(searchBar:UITextField, myVC:MapVC) {
         guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
-        appDelegate.geocodeController.executeGeocode(self.searchBar, myVC: self)
+        
+        guard let searchingString = searchBar.text where searchingString.characters.count > 0 else { return }
+        
+        appDelegate.geocodeController.geocodeUserLocation(searchingString + " " + CURRENT_CITY_STRING) { (foundLocation) -> () in
+            if(foundLocation.coordinate.latitude == 0){
+                let alert = UIAlertController(title: "Error", message: "The location provided did not map to a place in Toronto", preferredStyle: .Alert)
+                let okay = UIAlertAction(title: "Okay", style: .Default) { (UIAlertAction) -> Void in
+                }
+                alert.addAction(okay)
+                myVC.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            
+            myVC.centerMapOnLocation(foundLocation)
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -120,7 +138,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 let availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
                 for key in availableBikesKeysArray{
                     if station.parsedAvailableBikes[key] as! Int > 10 {
-                        print(station.parsedAvailableBikes[key] as! Int)
                         bikePinView.image = UIImage(named: "bikeicon")
                     }else{
                         bikePinView.image = UIImage(named: "bikeicon1")
@@ -138,7 +155,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 let availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
                 for key in availableDocksKeysArray{
                     if station.parsedAvailableDocks[key] as! Int > 10 {
-                        print(station.parsedAvailableDocks[key] as! Int)
                         dockPinView.image = UIImage(named: "dockicon")
                     }else{
                         dockPinView.image = UIImage(named: "dockicon1")
@@ -169,7 +185,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
-            //print("container open")
         }
         guard let anny = view.annotation,
             title = anny.title else { return }
