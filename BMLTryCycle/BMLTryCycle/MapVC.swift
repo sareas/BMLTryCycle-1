@@ -42,9 +42,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("mapvc \(btmContainerVC?.bottomContainerBikeLabel.text)")
-        
+
         searchBar.delegate = self
         mapView.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -117,10 +115,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             var bikePinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
             if bikePinView == nil {
                 bikePinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "bikePin")
-                var availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
+                let availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
                 for key in availableBikesKeysArray{
                     if station.parsedAvailableBikes[key] as! Int > 10 {
-                        print(station.parsedAvailableBikes[key] as! Int)
+                       // print(station.parsedAvailableBikes[key] as! Int)
                         bikePinView.image = UIImage(named: "bikeicon")
                     }else{
                         bikePinView.image = UIImage(named: "bikeicon1")
@@ -135,10 +133,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             var dockPinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
             if dockPinView == nil {
                 dockPinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "dockPin")
-                var availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
+                let availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
                 for key in availableDocksKeysArray{
                     if station.parsedAvailableDocks[key] as! Int > 10 {
-                        print(station.parsedAvailableDocks[key] as! Int)
+                       // print(station.parsedAvailableDocks[key] as! Int)
                         dockPinView.image = UIImage(named: "dockicon")
                     }else{
                         dockPinView.image = UIImage(named: "dockicon1")
@@ -155,66 +153,37 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     }
     
     
-    
-//    func configureMapView() {
-//        self.locationManager.delegate = self
-//        self.mapView.delegate = self
-//        self.locationManager.startUpdatingLocation()
-//        self.locationManager.requestWhenInUseAuthorization()
-//        
-//        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
-//            data = NSData(contentsOfURL: url) else {return}
-//        do {
-//            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-//                let station = Station(json: json)
-//                for pins in station.mapPins {
-//                    guard let myPins = pins as? Annotations else {return }
-//                    mapView.addAnnotation(myPins)
-//                }
-//            }
-//        } catch {
-//            
-//        }
-//    }
-    
     func setStage() {
         btmToSuperViewConstraint.constant = -btmCVHeight
         topToSuperViewConstraint.constant = -topCVHeight
         view.layoutIfNeeded()
     }
-        
     
-    //*** Code Implemented by Spencer and Heather
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
-            //print("container open")
+            print("annotation selected - open container")
         }
-//        guard let anny = view.annotation,
-//            title = anny.title,
-//            subtitle = anny.subtitle else { return }
         
         guard let anny = view.annotation else { return }
         guard let title = anny.title else { return }
-        guard let subtitle = anny.subtitle else { return }
         
-        // Access the number of bikes and available Docks info and put here:
-        if let containerBike = title {
-            btmContainerVC?.bottomContainerBikeLabel?.text? = containerBike
+        // Access the number of bikes and available Docks info put inside container labels:
+        if let annotationTitle = title {
+            topContainerVC?.bikeDockLocationLabel.text = title
             
+            if let numBikes = station.parsedAvailableBikes.valueForKey(annotationTitle) {
+                btmContainerVC?.bottomContainerBikeLabel.text = "\(numBikes)"
+            }
+            if let numDocks = station.parsedAvailableDocks.valueForKey(annotationTitle) {
+                btmContainerVC?.bottomContainerDockLabel.text = "\(numDocks)"
+            }
         }
-        
-       //
-        
-        print("station \(station.parsedAvailableBikes.valueForKey(title!))")
-        
-        print("container \(btmContainerVC?.bottomContainerBikeLabel.text)")
-        
-        //btmContainerVC?.bottomContainerDockLabel.text =
-        
-        topContainerVC?.bikeDockLocationLabel.text = title
-        
-        
-        
+    }
+    
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        toggleUpBtmCV { (complete) -> () in
+           print("annotation deselected - close container")
+        }
     }
     
     func toggleUpBtmCV(completion:(Bool) -> ()) {
@@ -239,7 +208,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 
         }
     }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "topContainerSegue" {
             guard let mpvc = segue.destinationViewController as? TopContainerVC else {return}
@@ -254,6 +222,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             
         }
     }
+
+
     
 }
 
