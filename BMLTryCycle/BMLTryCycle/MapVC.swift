@@ -154,67 +154,37 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         return pinView
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "topContainerSegue" {
+            guard let tempVC = segue.destinationViewController as? TopContainerVC else {return}
+            tempVC.mapVC = self
+            self.topContainerVC = tempVC
+        }
+        if segue.identifier == "bottomContainerSegue" {
+            guard let tempVC = segue.destinationViewController as? BottomContainerVC else {return}
+            tempVC.mapVC = self
+            self.btmContainerVC = tempVC
+        }
+    }
     
-    
-//    func configureMapView() {
-//        self.locationManager.delegate = self
-//        self.mapView.delegate = self
-//        self.locationManager.startUpdatingLocation()
-//        self.locationManager.requestWhenInUseAuthorization()
-//        
-//        guard let url = NSURL(string: BIKESHARE_API_URL_STRING),
-//            data = NSData(contentsOfURL: url) else {return}
-//        do {
-//            if let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-//                let station = Station(json: json)
-//                for pins in station.mapPins {
-//                    guard let myPins = pins as? Annotations else {return }
-//                    mapView.addAnnotation(myPins)
-//                }
-//            }
-//        } catch {
-//            
-//        }
-//    }
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        toggleUpBtmCV { (complete) -> () in
+            //print("container open")
+        }
+        guard let anny = view.annotation,
+            title = anny.title else { return }
+        
+        // Access the number of bikes and available Docks info and put here:
+        if let containerBike = title {
+            btmContainerVC?.bottomContainerBikeLabel?.text? = containerBike
+        }
+        topContainerVC?.bikeDockLocationLabel.text = title
+    }
     
     func setStage() {
         btmToSuperViewConstraint.constant = -btmCVHeight
         topToSuperViewConstraint.constant = -topCVHeight
         view.layoutIfNeeded()
-    }
-        
-    
-    //*** Code Implemented by Spencer and Heather
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        toggleUpBtmCV { (complete) -> () in
-            //print("container open")
-        }
-//        guard let anny = view.annotation,
-//            title = anny.title,
-//            subtitle = anny.subtitle else { return }
-        
-        guard let anny = view.annotation else { return }
-        guard let title = anny.title else { return }
-        guard let subtitle = anny.subtitle else { return }
-        
-        // Access the number of bikes and available Docks info and put here:
-        if let containerBike = title {
-            btmContainerVC?.bottomContainerBikeLabel?.text? = containerBike
-            
-        }
-        
-       //
-        
-        print("station \(station.parsedAvailableBikes.valueForKey(title!))")
-        
-        print("container \(btmContainerVC?.bottomContainerBikeLabel.text)")
-        
-        //btmContainerVC?.bottomContainerDockLabel.text =
-        
-        topContainerVC?.bikeDockLocationLabel.text = title
-        
-        
-        
     }
     
     func toggleUpBtmCV(completion:(Bool) -> ()) {
@@ -240,20 +210,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "topContainerSegue" {
-            guard let mpvc = segue.destinationViewController as? TopContainerVC else {return}
-            mpvc.mapVC = self
-            topContainerVC = mpvc
-            
-        }
-        if segue.identifier == "bottomContainerSegue" {
-            guard let mpvc = segue.destinationViewController as? BottomContainerVC else {return}
-            mpvc.mapVC = self
-            btmContainerVC = mpvc
-            
-        }
-    }
+
     
 }
 
