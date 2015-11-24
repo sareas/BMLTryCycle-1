@@ -117,7 +117,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             var bikePinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
             if bikePinView == nil {
                 bikePinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "bikePin")
-                var availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
+                let availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
                 for key in availableBikesKeysArray{
                     if station.parsedAvailableBikes[key] as! Int > 10 {
                         print(station.parsedAvailableBikes[key] as! Int)
@@ -135,7 +135,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             var dockPinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as MKAnnotationView!
             if dockPinView == nil {
                 dockPinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "dockPin")
-                var availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
+                let availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
                 for key in availableDocksKeysArray{
                     if station.parsedAvailableDocks[key] as! Int > 10 {
                         print(station.parsedAvailableDocks[key] as! Int)
