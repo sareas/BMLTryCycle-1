@@ -22,7 +22,7 @@
 		B6D552381BFBA542007D9C47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6D552361BFBA542007D9C47 /* LaunchScreen.storyboard */; };
 		B6D552431BFBA543007D9C47 /* BMLTryCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D552421BFBA543007D9C47 /* BMLTryCycleTests.swift */; };
 		B6D5524E1BFBA543007D9C47 /* BMLTryCycleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */; };
-		B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525B1BFBA5B6007D9C47 /* Constant.swift */; };
+		B6D5525C1BFBA5B6007D9C47 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525B1BFBA5B6007D9C47 /* Global.swift */; };
 		B6D5525E1BFBA855007D9C47 /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525D1BFBA855007D9C47 /* StationModel.swift */; };
 		B6D552601BFBAA4B007D9C47 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */; };
 		B6D552621BFBABA8007D9C47 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D552611BFBABA8007D9C47 /* MapKit.framework */; };
@@ -67,7 +67,7 @@
 		B6D552491BFBA543007D9C47 /* BMLTryCycleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BMLTryCycleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D5524D1BFBA543007D9C47 /* BMLTryCycleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMLTryCycleUITests.swift; sourceTree = "<group>"; };
 		B6D5524F1BFBA543007D9C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B6D5525B1BFBA5B6007D9C47 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		B6D5525B1BFBA5B6007D9C47 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B6D5525D1BFBA855007D9C47 /* StationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
 		B6D5525F1BFBAA4B007D9C47 /* Annotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 		B6D552611BFBABA8007D9C47 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				B6D5522A1BFBA542007D9C47 /* AppDelegate.swift */,
-				B6D5525B1BFBA5B6007D9C47 /* Constant.swift */,
+				B6D5525B1BFBA5B6007D9C47 /* Global.swift */,
 				846559311BFBC0AD0039FCCD /* Models */,
 				846559321BFBC0D90039FCCD /* ModelControllers */,
 				846559331BFBC0E10039FCCD /* Views */,
@@ -366,7 +366,7 @@
 				8465593C1BFBC8AF0039FCCD /* RootProfileVC.swift in Sources */,
 				84942A4C1BFD16F200F0CFF2 /* TopContainerVC.swift in Sources */,
 				01F6829D1BFE850F007F02DE /* GeocodeController.swift in Sources */,
-				B6D5525C1BFBA5B6007D9C47 /* Constant.swift in Sources */,
+				B6D5525C1BFBA5B6007D9C47 /* Global.swift in Sources */,
 				846559381BFBC3D20039FCCD /* ProfileVC.swift in Sources */,
 				8465593A1BFBC4870039FCCD /* ProfileModel.swift in Sources */,
 			);

@@ -8,7 +8,9 @@
 
 import Foundation
 
-let BIKESHARE_API_URL_STRING = "http://www.bikesharetoronto.com/stations/json"
+var pinID = String()
+
+let BIKESHARE_API_URL = NSURL(string: "http://www.bikesharetoronto.com/stations/json")
 let REVERSE_GEOLOCATION_API_URL_STRING = "https://maps.googleapis.com/maps/api/geocode/json?"
 let REVERSE_GEOLOCATION_API_KEY = "AIzaSyBLSAZDGXxNs4MCBSthSPU4ndLeXZDOrSc"
 
