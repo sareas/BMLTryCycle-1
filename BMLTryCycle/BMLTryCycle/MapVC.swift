@@ -42,7 +42,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         searchBar.delegate = self
         mapView.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -125,7 +125,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 let availableBikesKeysArray = [((bikePinView.annotation?.title)!)!]
                 for key in availableBikesKeysArray{
                     if station.parsedAvailableBikes[key] as! Int > 10 {
-                       // print(station.parsedAvailableBikes[key] as! Int)
                         bikePinView.image = UIImage(named: "bikeicon")
                     }else{
                         bikePinView.image = UIImage(named: "bikeicon1")
@@ -143,7 +142,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 let availableDocksKeysArray = [((dockPinView.annotation?.title)!)!]
                 for key in availableDocksKeysArray{
                     if station.parsedAvailableDocks[key] as! Int > 10 {
-                       // print(station.parsedAvailableDocks[key] as! Int)
                         dockPinView.image = UIImage(named: "dockicon")
                     }else{
                         dockPinView.image = UIImage(named: "dockicon1")
@@ -168,7 +166,6 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         toggleUpBtmCV { (complete) -> () in
-            print("annotation selected - open container")
         }
         
         guard let anny = view.annotation else { return }
@@ -215,21 +212,22 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                 
         }
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "topContainerSegue" {
-            guard let mpvc = segue.destinationViewController as? TopContainerVC else {return}
-            mpvc.mapVC = self
-            topContainerVC = mpvc
+    
+    func executeGeocode(searchBar:UITextField) {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        guard let searchString = searchBar.text where searchString.characters.count > 0 else { return }
+        
+        appDelegate.geocodeController.geocodeUserLocation(searchString + " " + CURRENT_CITY_STRING) { (foundLocation) -> () in
             
-        }
-        if segue.identifier == "bottomContainerSegue" {
-            guard let mpvc = segue.destinationViewController as? BottomContainerVC else {return}
-            mpvc.mapVC = self
-            btmContainerVC = mpvc
+            //locations returned with the long and lat of (0,0) are returned as errors
+            if(foundLocation.coordinate.latitude == 0){
+                self.alertMessage("The location provided did not map to a place in Toronto")
+                return
+            }
             
+            self.centerMapOnLocation(foundLocation)
         }
     }
-
     
     func alertMessage(message:String){
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
