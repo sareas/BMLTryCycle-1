@@ -42,6 +42,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
     //Standard UIViewController function
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         
         searchBar.delegate = self
         mapView.delegate = self
@@ -130,7 +132,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                         bikePinView.image = UIImage(named: "bikeicon1")
                     }
                 }
-                bikePinView.bounds = CGRectMake(0, 0, 25.0, 25.0)
+                bikePinView.bounds = CGRectMake(0, 0, 40.0, 40.0)
             } else {
                 bikePinView.annotation = annotation
             }
@@ -147,7 +149,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
                         dockPinView.image = UIImage(named: "dockicon1")
                     }
                 }
-                dockPinView.bounds = CGRectMake(0, 0, 25.0, 25.0)
+                dockPinView.bounds = CGRectMake(0, 0, 40.0, 40.0)
             } else {
                 
                 dockPinView.annotation = annotation
@@ -162,6 +164,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
         btmToSuperViewConstraint.constant = -btmCVHeight
         topToSuperViewConstraint.constant = -topCVHeight
         view.layoutIfNeeded()
+        navigationItem.backBarButtonItem?.tintColor = UIColor.blackColor()
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {

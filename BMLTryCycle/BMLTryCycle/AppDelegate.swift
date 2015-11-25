@@ -16,8 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var profile = Profile()
     let geocodeController = GeocodeController()
+    var navigationBarAppearace = UINavigationBar.appearance()
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+               navigationBarAppearace.tintColor = UIColor.blackColor()
         // Override point for customization after application launch.
         return true
     }

@@ -24,6 +24,7 @@ class RootProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
             return
         }
