@@ -224,7 +224,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIT
             
             //locations returned with the long and lat of (0,0) are returned as errors
             if(foundLocation.coordinate.latitude == 0){
-                self.alertMessage("The location provided did not map to a place in Toronto")
+                self.alertMessage("The location provided did not map to a place in Toronto. Please try specifying the street's direction.")
                 return
             }
             
