@@ -13,7 +13,6 @@ class RootProfileVC: UIViewController {
     var station = Station()
     
     @IBOutlet weak var welcomeMessage: UILabel!
-    @IBOutlet weak var nameTextField: UITextField!
     
     @IBAction func bikesPressed(sender: AnyObject) {
         pinID = "bikePin"
@@ -25,14 +24,8 @@ class RootProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
-            return
-        }
-        let userName = NSUserDefaults(suiteName: nameTextField.text)
-        if userName != nil{
-            welcomeMessage.text = "Welcome, \(userName)"
-            nameTextField.alpha = 0.0
-        }
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {return}
+        
         welcomeMessage.text = "Welcome \(appDelegate.profile.load())"
     }
     
